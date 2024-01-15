@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Чат-бот академічної доброчесності</title>
+    <meta property="og:title" content="Чат-бот з питань академічної доброчесності для Erazmus+">
+    <meta name="keywords" content="академічна доброчесність, плагіат, чатботи, чат-бот, Erazmus+, Вознюк Софія, штучний інтелект">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/botui@0.3.9/build/botui.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/botui@0.3.9/build/botui-theme-default.css" />
+    <link rel="icon" type="image/x-icon" href="bot.ico">
+    <style>
+      html, body {
+        background-color: #41c0cc;
+        background-image: linear-gradient(-90deg, #4199cc, #545ddf);
+        height: 100%;
+        margin: 0;
+      }
+      .botui-container {
+        background-color: inherit;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 2px;
+        height: auto!important;
+        max-height: calc(100vh - 60px);
+      }
+
+      .chat-heading{
+        height: 60px;
+        width: calc(100% - 20px);
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: rgba(200,246,233, 0.7);
+        padding-left: 20px;
+        padding-right: -20px;
+        color: #404040;
+        font-family: "Open Sans",sans-serif;
+      }
+
+      .botui-actions-container {
+        padding: 40px 30px;
+        height: calc(220px + (260 - 220) * ((100vw - 480px) / (1900 - 480)));
+        overflow-y:auto;
+        background-color: rgba(200, 243, 246, 0.3);
+      }
+
+      .botui-message {
+        margin: 0!important;
+        min-height: auto!important;
+      }
+      @media  (min-width: 1100px) {
+        .botui-app-container{
+          width: 50%!important;
+        }
+      }
+      .botui-app-container{
+        height: 100%!important;
+        display: flex;
+        flex-direction: column;
+      }
+      .botui-messages-container{
+        display: flex;
+        flex: 1;
+        gap: 10px;
+        height: 100%;
+        flex-direction: column;
+        overflow-y: auto!important;
+        /* justify-content: end; */
+        background-color: rgba(200,246,233, 0.3);
+      }
+      button.botui-actions-buttons-button:last-child{
+        margin-right: 10px;
+      }
+
+      .botui-message-content.text {
+        background-color: #e1fafc;
+        color: #404040;
+      }
+
+      .botui-message-content.human {
+        background-color: #c4e9ff;
+        color: #404040;
+      }
+      button.botui-actions-buttons-button {
+        margin-top: 0px;
+        font-weight: 600;
+        background-color: transparent!important;
+        border: 1px solid white;
+        transition: all 0.2s ease-in-out;
+      }
+      button.botui-actions-buttons-button:hover{
+        background-color: rgba(255, 242, 242, 0.2)!important;
+      }
+      .credentials{
+        font-family: "Open Sans",sans-serif;
+        font-size: 12px;
+        color: white;
+        opacity: 0.8;
+        padding: 5px 0;
+        display: flex;
+        justify-content: space-between;
+      }
+      .credentials a{
+        color: white;
+      }
+      .credentials .credential-details{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .credentials .credential-details span{
+        white-space: nowrap;
+      }
+      @media(min-width: 1100px){
+        button.botui-actions-buttons-button {
+          width: calc(50% - 15px);    
+        }
+        .botui-actions-buttons{
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+      }
+      @media(min-width:768px) and (max-width:1099px){
+        button.botui-actions-buttons-button {
+          width: calc(50% - 15px);    
+        }
+        .botui-app-container{
+          width: 75%!important;
+        }
+      }
+      @media (max-width: 768px){
+        .botui-actions-container{
+          padding: 20px 20px 10px 20px!important;
+        }
+        .chat-heading{
+          font-size: 16px;
+        }
+        .botui-container{
+          font-size: 12px!important;
+        }
+        .botui-app-container{
+          width: 100%!important;
+        }
+      }
+      @media (max-width: 500px){
+        .credentials {
+          padding-left: 10px;
+        }
+        .credentials .credential-details{
+          flex-direction: column;
+          gap: 5px;
+          padding-right: 10px;
+          
+        }
+      }
+      * {
+        scrollbar-width: auto;
+        scrollbar-color: #f1fbff #ffffff;
+      }
+
+      /* Chrome, Edge, and Safari */
+      *::-webkit-scrollbar {
+        width: 7px;
+        margin-right: 3px;
+      }
+
+      *::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      *::-webkit-scrollbar-thumb {
+        background-color: #f1fbff;
+        border-radius: 10px;
+        border: 1px solid #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="botui-app-container" id="help-bot">
+      <div class="chat-heading">Чатбот щодо академічної доброчесності</div>
+      <bot-ui></bot-ui>
+      <div class="credentials">
+        <a target="_blank" href="https://botui.org/">By BotUI</a>
+        <div class="credential-details">
+          <span>Розробка:&nbsp;<a target="_blank" style="margin-right: 20px;" href="https://www.linkedin.com/in/sofiia-vozniuk/">Вознюк Софія</a></span>
+          <span>Ідея:&nbsp;<a>Засєкін Сергій</a></span>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/botui@0.3.9/build/botui.min.js"></script>
+    <script src="./bot-script.js"></script>
+  </body>
+</html>
