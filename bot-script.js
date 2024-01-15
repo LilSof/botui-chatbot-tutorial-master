@@ -72,7 +72,6 @@ function scrollToBottom(divId) {
   var div = document.getElementsByClassName(divId);
   // Ensure the div exists
   if (div) {
-    // Set the scroll position to the height of the div
     div.scrollTop = div.scrollHeight;
   } else {
     console.error("Div with ID " + divId + " not found.");
@@ -83,11 +82,13 @@ function scrollToBottom(divId) {
 botui.message.add({
   delay: 500,
   loading: true,
-  content: 'Вітаю! Це чатбот по <i>Erasmus+</i>, що стосується питань академічної доброчесності'
+  type: 'html',
+  content: 'Вітаю! Мене звати <b>FAIR</b>. Я чат-бот з академічної доброчесності.'
 }).then(function () {
   botui.message.add({
     delay: 500,
     loading: true,
+    type: 'html',
     content: 'Про що хотіли б сьогодні поговорити?'
   });
   startConversation();
@@ -262,9 +263,10 @@ function AIInteraction(){
     type: 'html',
     delay: 1000,
     loading: true,
-    content: "Що б ви хотіли дізнатись про взаємодію Штучного Інтелекту та доброчесності?"
+    content: "Що б Ви хотіли дізнатись про взаємодію Штучного Інтелекту та доброчесності?"
   })  
   .then(function () {
+    scrollToBottom("botui-messages-container");
     return botui.action.button({
       action: [
         {
@@ -360,7 +362,7 @@ function illegalActiions(){
     type: 'html',
     delay: 1000,
     loading: true,
-    content: "Про які сфери ви хотіли б дізнатись?"
+    content: "Про які сфери Ви хотіли б дізнатись?"
   })
   
   .then(function () {
